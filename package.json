@@ -13,6 +13,9 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
   },
   "dependencies": {
+    "@reach/router": "^1.2.1",
+    "auth0-js": "^9.10.1",
+    "dotenv": "^7.0.0",
     "gatsby": "^2.2.3",
     "react": "^16.8.4",
     "react-dom": "^16.8.4"
