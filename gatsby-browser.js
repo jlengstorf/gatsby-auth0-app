@@ -1,32 +1,14 @@
-import React from "react"
+// import React from "react"
+import React, { useState, useEffect } from "react"
 import { checkSession } from "./src/utils/auth"
 
-class SessionCheck extends React.Component {
-  state = {
-    loading: true,
-  }
-
-  construct() {
-    this.handleCheckSession = this.handleCheckSession.bind(this)
-  }
-
-  handleCheckSession = () => {
-    this.setState({ loading: false })
-  }
-
-  componentWillMount() {
-    console.log(localStorage.getItem("isLoggedIn"))
-    checkSession(this.handleCheckSession)
-  }
-
-  render() {
-    return (
-      this.state.loading === false && (
-        <React.Fragment>{this.props.children}</React.Fragment>
-      )
-    )
-  }
-}
+const SessionCheck = props => {
+  const [loading, stillLoading] = useState(true);
+  useEffect(() => {
+    checkSession(() => stillLoading(!loading));
+  }, []);
+  return loading === false && <>{props.children}</>
+};
 
 export const wrapRootElement = ({ element }) => {
   return <SessionCheck>{element}</SessionCheck>
