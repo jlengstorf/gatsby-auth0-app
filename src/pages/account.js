@@ -4,6 +4,7 @@ import { login, logout, isAuthenticated, getProfile } from "../utils/auth"
 import { Link } from "gatsby"
 
 const Home = () => <p>Home</p>
+const MyAccount = () => <p>My Account</p>
 const Settings = () => <p>Settings</p>
 const Billing = () => <p>Billing</p>
 
@@ -18,7 +19,8 @@ const Account = () => {
   return (
     <>
       <nav>
-        <Link to="/account/">Home</Link>{" "}
+        <Link to="/">Home</Link>{" "}
+        <Link to="/account/">My Account</Link>{" "}
         <Link to="/account/settings/">Settings</Link>{" "}
         <Link to="/account/billing/">Billing</Link>{" "}
         <a
@@ -33,9 +35,10 @@ const Account = () => {
       </nav>
       <pre>{JSON.stringify(user, null, 2)}</pre>
       <Router>
+        <Home path="/" />
+        <MyAccount path="/account/" />
         <Settings path="/account/settings" />
         <Billing path="/account/billing" />
-        <Home path="/account/" />
       </Router>
     </>
   )
