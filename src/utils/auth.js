@@ -35,10 +35,10 @@ export const logout = () => {
   tokens.accessToken = false
   tokens.idToken = false
   user = {}
-  localStorage.setItem("isLoggedIn", false)
+  window.localStorage.setItem("isLoggedIn", false)
 
   auth.logout({
-    returnTo: location.href,
+    returnTo: window.location.origin,
   })
 }
 
@@ -48,15 +48,13 @@ const setSession = (cb = () => {}) => (err, authResult) => {
       login()
     }
   }
-
   if (authResult && authResult.accessToken && authResult.idToken) {
     tokens.idToken = authResult.idToken
     tokens.accessToken = authResult.accessToken
 
     auth.client.userInfo(tokens.accessToken, (_err, userProfile) => {
       user = userProfile
-
-      localStorage.setItem("isLoggedIn", true)
+      window.localStorage.setItem("isLoggedIn", true)
 
       cb()
     })
@@ -64,14 +62,14 @@ const setSession = (cb = () => {}) => (err, authResult) => {
 }
 
 export const checkSession = callback => {
-  const isLoggedIn = localStorage.getItem("isLoggedIn")
-  console.log({ isLoggedIn })
+  const isLoggedIn = window.localStorage.getItem("isLoggedIn")
   if (isLoggedIn === "false") {
-    console.log("Not logged in")
     callback()
-    return
   }
-  auth.checkSession({}, setSession(callback))
+  const protectedRoute = window.location.href.includes(`${window.location.origin}/account/`);
+  if (protectedRoute) {
+    auth.checkSession({}, setSession(callback))
+  }
 }
 
 export const handleAuthentication = () => {
