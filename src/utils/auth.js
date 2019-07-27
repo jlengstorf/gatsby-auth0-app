@@ -66,8 +66,11 @@ export const checkSession = callback => {
   if (isLoggedIn === "false") {
     callback()
   }
-  const protectedRoute = window.location.href.includes(`${window.location.origin}/account/`);
-  if (protectedRoute) {
+  const protectedRoutes = [`/account`, `/callback`];
+  const isProtectedRoute = protectedRoutes
+    .map(route => window.location.pathname.includes(route))
+    .some(route => route)
+  if (isProtectedRoute) {
     auth.checkSession({}, setSession(callback))
   }
 }
