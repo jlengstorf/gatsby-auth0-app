@@ -63,7 +63,7 @@ const setSession = (cb = () => {}) => (err, authResult) => {
 
 export const checkSession = callback => {
   const isLoggedIn = window.localStorage.getItem("isLoggedIn")
-  if (isLoggedIn === "false") {
+  if (isLoggedIn === "false" || isLoggedIn === null) {
     callback()
   }
   const protectedRoutes = [`/account`, `/callback`];
