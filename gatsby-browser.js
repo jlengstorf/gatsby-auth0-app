@@ -9,6 +9,6 @@ const SessionCheck = props => {
   return loading === false && <>{props.children}</>
 };
 
-export const wrapRootElement = ({ element }) => {
-  return <SessionCheck>{element}</SessionCheck>
-}
+export const wrapRootElement = ({ element }) => (
+  <SessionCheck>{element}</SessionCheck>
+);
